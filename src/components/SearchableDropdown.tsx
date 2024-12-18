@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { validationSchemas } from "../utils/validationSchemas";
 import { FaAngleDown } from "react-icons/fa";
 import clsx from "clsx";
+import useDebounce from "../hooks/useDebounce";
 
 interface SearchableDropdownProps {
   name: string;
@@ -39,9 +40,13 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   }, [showDropdown]);
 
   const handleSearch = (searchKey: string) => {
-    setFilteredOptions(
-      options.filter((_) => _?.toLowerCase()?.includes(searchKey.toLowerCase()))
-    );
+    useDebounce(() => {
+      setFilteredOptions(
+        options.filter((_) =>
+          _?.toLowerCase()?.includes(searchKey.toLowerCase())
+        )
+      );
+    })();
   };
 
   return (

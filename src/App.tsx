@@ -8,6 +8,7 @@ import Select from "./components/Select";
 import SearchableDropdown from "./components/SearchableDropdown";
 import FilePicker from "./components/FilePicker";
 import DatePicker from "./components/DatePicker";
+import TimePicker from "./components/TimePicker";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =
@@ -21,7 +22,7 @@ const App = () => {
       department: "",
       resume: "",
       dateOfBirth: "",
-      time: "",
+      loginTime: "",
     });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -129,6 +130,15 @@ const App = () => {
         label="Date of Birth"
         error={errors.dateOfBirth}
         value={values.dateOfBirth}
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
+
+      <TimePicker
+        name="loginTime"
+        label="Login Time"
+        error={errors.loginTime}
+        value={values.loginTime}
         onBlur={handleBlur}
         onChange={handleChange}
       />
