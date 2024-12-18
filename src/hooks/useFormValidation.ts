@@ -1,37 +1,32 @@
 import { useState } from "react";
-type ValidationFunction = (value: string) => string | null;
+
+type ValidationFunction = (value: any) => string | null;
 
 const useFormValidation = (initialValues: Record<string, any>) => {
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState<Record<string, any>>({});
 
-    const handleChange = (name: string, value: string) => {
-        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }))
-        setValues((prev) => (
-            {
-                ...prev,
-                [name]: value
-            }
-        ))
-    }
+    const handleChange = (name: string, value: any) => {
+        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
+        setValues((prev) => ({ ...prev, [name]: value }));
+    };
 
-    const handleBlur = (name: string, value: string, validations: ValidationFunction) => {
+    const handleBlur = (
+        name: string,
+        value: any,
+        validations: ValidationFunction
+    ) => {
         const error = validations(value);
-
         if (error) {
-            setErrors((prev) => (
-                {
-                    ...prev,
-                    [name]: error
-                }
-            ))
+            setErrors((prev) => ({ ...prev, [name]: error }));
         }
-    }
+    };
 
     const hasErrors = () => {
-        if (Object.values(errors).some((_) => _ !== null) || Object.values(values).some(_ => _ === ""))
-            return true
-        return false;
+        return (
+            Object.values(errors).some((error) => error !== null) ||
+            Object.values(values).some((value) => value === "" || value === null)
+        );
     };
 
     return {
@@ -39,8 +34,8 @@ const useFormValidation = (initialValues: Record<string, any>) => {
         errors,
         handleChange,
         handleBlur,
-        hasErrors
-    }
-}
+        hasErrors,
+    };
+};
 
 export default useFormValidation;

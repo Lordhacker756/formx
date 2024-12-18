@@ -40,4 +40,8 @@ export const validationSchemas = {
         value.trim().length > 0
             ? null
             : 'This field cannot be empty. Please provide a response.',
+
+    // Validates that a file has been selected
+    file: (value: File | null) =>
+        value ? null : 'Please select a file.',
 };

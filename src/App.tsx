@@ -6,6 +6,7 @@ import TextArea from "./components/TextArea";
 import RadioGroup from "./components/RadioGroup";
 import Select from "./components/Select";
 import SearchableDropdown from "./components/SearchableDropdown";
+import FilePicker from "./components/FilePicker";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =
@@ -17,6 +18,7 @@ const App = () => {
       gender: "",
       role: "",
       department: "",
+      resume: "",
     });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -106,6 +108,17 @@ const App = () => {
           "Human Resource",
         ]}
         schema="select"
+      />
+
+      <FilePicker
+        name="resume"
+        label="Resume"
+        onBlur={handleBlur}
+        onChange={handleChange}
+        schema="select"
+        value={values.resume}
+        error={errors.resume}
+        key={"resume"}
       />
 
       <SubmitButton disabled={hasErrors()} />
