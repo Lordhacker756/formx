@@ -1,14 +1,6 @@
 import React from "react";
 import { validationSchemas } from "../utils/validationSchemas";
 
-/*
-TODO
-1. Get the number of options to give in radio
-2. Validate that atleast one is selected
-3. Set the value selected
-4. Show the errors if any remain unselected
-*/
-
 interface RadioProps {
   name: string;
   value: string;
@@ -34,10 +26,9 @@ const RadioGroup: React.FC<RadioProps> = ({
   onBlur,
   schema,
 }) => {
-  console.log("RadioGroup:: ", value);
   return (
     <div>
-      <strong>Select {label}</strong>
+      <p>Select {label}</p>
       <div className="flex flex-row items-center">
         {options.map((_) => (
           <div

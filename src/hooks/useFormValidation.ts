@@ -6,7 +6,6 @@ const useFormValidation = (initialValues: Record<string, any>) => {
     const [errors, setErrors] = useState<Record<string, any>>({});
 
     const handleChange = (name: string, value: string) => {
-        console.log("handleChange:: ", name, value)
         if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }))
         setValues((prev) => (
             {
@@ -30,7 +29,7 @@ const useFormValidation = (initialValues: Record<string, any>) => {
     }
 
     const hasErrors = () => {
-        if (Object.values(errors).some((_) => _ !== null) || Object.values(values).every(_ => _ === ""))
+        if (Object.values(errors).some((_) => _ !== null) || Object.values(values).some(_ => _ === ""))
             return true
         return false;
     };
