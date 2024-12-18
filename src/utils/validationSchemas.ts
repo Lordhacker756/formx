@@ -27,7 +27,7 @@ export const validationSchemas = {
     select: (value: string) =>
         value.trim()
             ? null
-            : 'Please select a valid option.',
+            : 'Please select atleast one option.',
 
     // Validates a radio button group
     radio: (value: string) =>

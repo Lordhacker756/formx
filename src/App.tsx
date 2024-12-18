@@ -5,6 +5,7 @@ import useFormValidation from "./hooks/useFormValidation";
 import TextArea from "./components/TextArea";
 import RadioGroup from "./components/RadioGroup";
 import Select from "./components/Select";
+import SearchableDropdown from "./components/SearchableDropdown";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =
@@ -15,6 +16,7 @@ const App = () => {
       coverLetter: "",
       gender: "",
       role: "",
+      department: "",
     });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -85,6 +87,25 @@ const App = () => {
         schema="select"
         value={values.role}
         options={["SDE1", "SDE2", "SDE3", "SA", "PE"]}
+      />
+
+      <SearchableDropdown
+        name="department"
+        label="Department"
+        value={values.department}
+        error={errors.department}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        options={[
+          "Frontend",
+          "Backend",
+          "Database Management",
+          "DevOps",
+          "DevRel",
+          "Mobile",
+          "Human Resource",
+        ]}
+        schema="select"
       />
 
       <SubmitButton disabled={hasErrors()} />

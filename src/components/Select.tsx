@@ -52,7 +52,7 @@ const Select: React.FC<SelectProps> = ({
         {label}
       </label>
       <div
-        className={`border p-2 rounded flex flex-row justify-between items-center ${
+        className={`border p-2 rounded flex flex-row justify-between items-center hover:cursor-pointer ${
           error ? "border-red-500" : ""
         }`}
         id={name}
