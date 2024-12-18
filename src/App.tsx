@@ -3,6 +3,7 @@ import Input from "./components/Input";
 import SubmitButton from "./components/SubmitButton";
 import useFormValidation from "./hooks/useFormValidation";
 import TextArea from "./components/TextArea";
+import RadioGroup from "./components/RadioGroup";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =
@@ -11,6 +12,7 @@ const App = () => {
       email: "",
       password: "",
       coverLetter: "",
+      gender: "",
     });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -58,6 +60,18 @@ const App = () => {
         schema="textarea"
         onBlur={handleBlur}
         onChange={handleChange}
+      />
+
+      <RadioGroup
+        name="gender"
+        label="Gender"
+        options={["male", "female"]}
+        value={values.gender}
+        key="gender"
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={errors.gender}
+        schema="select"
       />
 
       <SubmitButton disabled={hasErrors()} />
