@@ -44,4 +44,8 @@ export const validationSchemas = {
     // Validates that a file has been selected
     file: (value: File | null) =>
         value ? null : 'Please select a file.',
+
+    date: (value: string) => value ? null : "Please select a valid date",
+
+    time: (value: string) => value ? null : "Please select a valid time",
 };

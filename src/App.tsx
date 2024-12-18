@@ -7,6 +7,7 @@ import RadioGroup from "./components/RadioGroup";
 import Select from "./components/Select";
 import SearchableDropdown from "./components/SearchableDropdown";
 import FilePicker from "./components/FilePicker";
+import DatePicker from "./components/DatePicker";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =
@@ -19,6 +20,8 @@ const App = () => {
       role: "",
       department: "",
       resume: "",
+      dateOfBirth: "",
+      time: "",
     });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -119,6 +122,15 @@ const App = () => {
         value={values.resume}
         error={errors.resume}
         key={"resume"}
+      />
+
+      <DatePicker
+        name="dateOfBirth"
+        label="Date of Birth"
+        error={errors.dateOfBirth}
+        value={values.dateOfBirth}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
 
       <SubmitButton disabled={hasErrors()} />
