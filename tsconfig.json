@@ -1,13 +1,15 @@
 {
-  "files": [],
-  "settings": {
-    "compilerOptions": {
-      "types": ["node"],
-      "moduleResolution": "node"
-    }
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/types", // Specify the directory where .d.ts files should go
+    "outDir": "./dist", // This ensures the compiled JavaScript goes to the dist folder
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "types": ["node"], // Ensure node types are included
+    "target": "esnext",
+    "module": "esnext"
   },
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
