@@ -1,21 +1,7 @@
 import React from "react";
-import { validationSchemas } from "../utils/validationSchemas";
+import { validationSchemas } from "../utils";
 import clsx from "clsx";
-
-interface TextAreaProps {
-  name: string;
-  value: string;
-  label: string;
-  onChange: (name: string, value: string) => void;
-  onBlur: (
-    name: string,
-    value: string,
-    validate: (value: string) => string | null
-  ) => void;
-  error?: string | null;
-  customStyles?: string;
-  schema: keyof typeof validationSchemas;
-}
+import { TextAreaProps } from "../types";
 
 const TextArea: React.FC<TextAreaProps> = ({
   name,
@@ -24,26 +10,32 @@ const TextArea: React.FC<TextAreaProps> = ({
   onChange,
   onBlur,
   error,
-  customStyles,
   schema,
+  styleProps = {},
 }) => {
   return (
-    <div className={clsx("flex flex-col", customStyles)}>
-      <label htmlFor="name" className="mb-1">
+    <div className={clsx("flex flex-col", styleProps.container)}>
+      <label htmlFor={name} className={clsx("mb-1", styleProps.label)}>
         {label}
       </label>
       <textarea
         id={name}
         value={value}
-        onChange={(e) => {
-          onChange(name, e.target.value);
-        }}
-        onBlur={(e) => {
-          onBlur(name, e.target.value, validationSchemas[schema]);
-        }}
-        className={clsx("border p-2 rounded", error && "border-red-500")}
+        onChange={(e) => onChange(name, e.target.value)}
+        onBlur={(e) => onBlur(name, e.target.value, validationSchemas[schema])}
+        className={clsx(
+          "border p-2 rounded",
+          error && "border-red-500",
+          styleProps.textArea
+        )}
       />
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
+      {error && (
+        <span
+          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };

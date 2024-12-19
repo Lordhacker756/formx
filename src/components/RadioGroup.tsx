@@ -1,20 +1,7 @@
 import React from "react";
-import { validationSchemas } from "../utils/validationSchemas";
-
-interface RadioProps {
-  name: string;
-  value: string;
-  label: string;
-  options: string[];
-  error: string | null;
-  onChange: (name: string, value: string) => void;
-  onBlur: (
-    name: string,
-    value: string,
-    validate: (value: string) => string | null
-  ) => void;
-  schema: keyof typeof validationSchemas;
-}
+import { validationSchemas } from "../utils";
+import clsx from "clsx";
+import { RadioProps } from "../types";
 
 const RadioGroup: React.FC<RadioProps> = ({
   name,
@@ -25,34 +12,51 @@ const RadioGroup: React.FC<RadioProps> = ({
   error,
   onBlur,
   schema,
+  styleProps = {},
 }) => {
   return (
-    <div>
-      <p>Select {label}</p>
-      <div className="flex flex-row items-center">
-        {options.map((_) => (
+    <div className={clsx("flex flex-col", styleProps.container)}>
+      <p className={clsx("mb-2", styleProps.label)}>Select {label}</p>
+      <div
+        className={clsx(
+          "flex flex-row items-center",
+          styleProps.optionsContainer
+        )}
+      >
+        {options.map((option) => (
           <div
-            className="mx-2 flex flex-row justify-center items-center"
-            key={_}
+            key={option}
+            className={clsx(
+              "mx-2 flex flex-row justify-center items-center",
+              styleProps.optionItem
+            )}
           >
-            <label className="mr-1" htmlFor={_}>
-              {_}
+            <label
+              htmlFor={option}
+              className={clsx("mr-1", styleProps.optionLabel)}
+            >
+              {option}
             </label>
             <input
               type="radio"
               name={name}
-              value={_}
-              checked={value === _}
-              onChange={() => {
-                onChange(name, _);
-              }}
-              key={_}
-              onBlur={() => onBlur(name, _, validationSchemas[schema])}
+              value={option}
+              id={option}
+              checked={value === option}
+              onChange={() => onChange(name, option)}
+              onBlur={() => onBlur(name, option, validationSchemas[schema])}
+              className={clsx(styleProps.radioInput)}
             />
           </div>
         ))}
       </div>
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
+      {error && (
+        <span
+          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export const validationSchemas = {
+const validationSchemas = {
     // Validates that the name is not empty after trimming
     name: (value: string) =>
         value.trim()
@@ -49,3 +49,5 @@ export const validationSchemas = {
 
     time: (value: string) => value ? null : "Please select a valid time",
 };
+
+export default validationSchemas

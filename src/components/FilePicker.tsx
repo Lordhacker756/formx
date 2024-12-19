@@ -1,21 +1,7 @@
 import React, { useRef } from "react";
-import { validationSchemas } from "../utils/validationSchemas";
+import { validationSchemas } from "../utils";
 import clsx from "clsx";
-
-interface FilePickerProps {
-  name: string;
-  label: string;
-  value: File | null;
-  onChange: (name: string, value: File | null) => void;
-  onBlur: (
-    name: string,
-    value: File | null,
-    validate: (value: File | null) => string | null
-  ) => void;
-  error?: string | null;
-  customStyles?: string;
-  schema: keyof typeof validationSchemas;
-}
+import { FilePickerProps } from "../types";
 
 const FilePicker: React.FC<FilePickerProps> = ({
   name,
@@ -24,46 +10,50 @@ const FilePicker: React.FC<FilePickerProps> = ({
   onChange,
   onBlur,
   error,
-  customStyles = "",
   schema,
+  styleProps = {},
 }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
     onChange(name, file);
   };
 
-  const handleBlur = () => {
-    onBlur(name, value, validationSchemas["file"]);
+  const handleButtonClick = () => {
+    inputRef.current?.click();
   };
 
   return (
-    <div className={clsx("flex flex-col", customStyles)}>
-      <label htmlFor={name} className="mb-1">
+    <div className={clsx(styleProps.container)}>
+      <label htmlFor={name} className={clsx(styleProps.label)}>
         {label}
       </label>
-      <div
-        className={clsx(
-          "border p-2 rounded flex items-center justify-between cursor-pointer",
-          error && "border-red-500"
-        )}
-        onClick={() => fileInputRef.current?.click()}
-      >
-        <span>{value ? value.name : `Select ${label}`}</span>
-        <button type="button" onClick={() => fileInputRef.current?.click()}>
-          Browse
-        </button>
-      </div>
       <input
-        id={name}
         type="file"
-        ref={fileInputRef}
-        style={{ display: "none" }}
+        id={name}
+        ref={inputRef}
         onChange={handleFileChange}
-        onBlur={handleBlur}
+        className={clsx("hidden", styleProps.input)}
+        onBlur={() => onBlur(name, value, validationSchemas[schema])}
       />
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
+      <button
+        type="button"
+        onClick={handleButtonClick}
+        className={clsx(styleProps.button)}
+      >
+        Choose File
+      </button>
+      {value && (
+        <p className={clsx(styleProps.fileName)}>Selected File: {value.name}</p>
+      )}
+      {error && (
+        <span
+          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };

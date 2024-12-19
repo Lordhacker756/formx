@@ -1,21 +1,8 @@
 import React, { useState } from "react";
-import { validationSchemas } from "../utils/validationSchemas";
+import clsx from "clsx";
+import { validationSchemas } from "../utils";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-
-interface InputProps {
-  name: string;
-  label: string;
-  value: string;
-  onChange: (name: string, value: string) => void;
-  onBlur: (
-    name: string,
-    value: string,
-    validate: (value: string) => string | null
-  ) => void;
-  error?: string | null;
-  customStyles?: string;
-  schema?: keyof typeof validationSchemas;
-}
+import { InputProps } from "../types";
 
 const Input: React.FC<InputProps> = ({
   name,
@@ -24,22 +11,24 @@ const Input: React.FC<InputProps> = ({
   onChange,
   onBlur,
   error,
-  customStyles = "",
   schema = "name",
+  styleProps = {},
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
-    <div className={`flex flex-col ${customStyles}`}>
-      <label htmlFor={name} className="mb-1">
+    <div className={clsx("flex flex-col", styleProps.container)}>
+      <label htmlFor={name} className={clsx("mb-1", styleProps.label)}>
         {label}
       </label>
       <div
-        className={`border p-2 rounded flex flex-row justify-between items-center ${
-          error ? "border-red-500" : ""
-        }`}
+        className={clsx(
+          "border p-2 rounded flex flex-row justify-between items-center",
+          error && "border-red-500",
+          styleProps.inputWrapper
+        )}
       >
         <input
           id={name}
@@ -48,16 +37,25 @@ const Input: React.FC<InputProps> = ({
           onBlur={(e) =>
             onBlur(name, e.target.value, validationSchemas[schema])
           }
-          className="w-full border-none outline-none"
+          className={clsx("w-full border-none outline-none", styleProps.input)}
           type={schema !== "password" || showPassword ? "text" : "password"}
         />
         {schema === "password" && (
-          <span onClick={togglePasswordVisibility} className="password-toggle">
+          <span
+            onClick={togglePasswordVisibility}
+            className={clsx("password-toggle", styleProps.passwordToggle)}
+          >
             {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
           </span>
         )}
       </div>
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
+      {error && (
+        <span
+          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };

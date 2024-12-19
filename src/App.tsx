@@ -1,14 +1,17 @@
 import React from "react";
-import Input from "./components/Input";
-import SubmitButton from "./components/SubmitButton";
-import useFormValidation from "./hooks/useFormValidation";
-import TextArea from "./components/TextArea";
-import RadioGroup from "./components/RadioGroup";
-import Select from "./components/Select";
-import SearchableDropdown from "./components/SearchableDropdown";
-import FilePicker from "./components/FilePicker";
-import DatePicker from "./components/DatePicker";
-import TimePicker from "./components/TimePicker";
+import {
+  DatePicker,
+  FilePicker,
+  Input,
+  RadioGroup,
+  SearchableDropdown,
+  Select,
+  SubmitButton,
+  TextArea,
+  TimePicker,
+} from "./components";
+
+import { useFormValidation } from "./hooks";
 
 const App = () => {
   const { values, errors, handleChange, handleBlur, hasErrors } =

@@ -1,23 +1,9 @@
 import { useEffect, useState } from "react";
-import { validationSchemas } from "../utils/validationSchemas";
+import { validationSchemas } from "../utils";
 import { FaAngleDown } from "react-icons/fa";
 import clsx from "clsx";
 import useDebounce from "../hooks/useDebounce";
-
-interface SearchableDropdownProps {
-  name: string;
-  label: string;
-  value: string;
-  options: string[];
-  error: string | null;
-  schema: keyof typeof validationSchemas;
-  onChange: (name: string, value: string) => void;
-  onBlur: (
-    name: string,
-    value: string,
-    validator: (value: string) => string | null
-  ) => void;
-}
+import { SearchableDropdownProps } from "../types";
 
 const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   name,
@@ -28,13 +14,13 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   schema,
   onChange,
   onBlur,
+  styleProps = {},
 }) => {
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const debouncedSearch = useDebounce((searchKey: string) => {
-    console.log("Debounce called");
     setFilteredOptions(
       options.filter((option) =>
         option.toLowerCase().includes(searchKey.toLowerCase())
@@ -44,7 +30,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
 
   useEffect(() => {
     if (hasBeenOpened) {
-      onBlur(name, value, validationSchemas["select"]);
+      onBlur(name, value, validationSchemas[schema]);
     }
   }, [showDropdown]);
 
@@ -53,17 +39,21 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   };
 
   return (
-    <div>
-      <label htmlFor={name}>Select {label}</label>
+    <div className={clsx(styleProps.container)}>
+      <label htmlFor={name} className={clsx(styleProps.label)}>
+        Select {label}
+      </label>
       <div
-        className={`border p-2 rounded flex flex-row justify-between items-center ${
-          error ? "border-red-500" : ""
-        }`}
+        className={clsx(
+          "border p-2 rounded flex justify-between items-center",
+          error ? "border-red-500" : "",
+          styleProps.dropdownTrigger
+        )}
         id={name}
         onClick={() => {
-          !hasBeenOpened && setHasBeenOpened(true);
           setShowDropdown((prev) => !prev);
           setFilteredOptions(options);
+          !hasBeenOpened && setHasBeenOpened(true);
         }}
       >
         {value && !showDropdown ? (
@@ -71,7 +61,10 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         ) : showDropdown ? (
           <input
             type="text"
-            className="border border-none outline-none w-full"
+            className={clsx(
+              "border-none outline-none w-full",
+              styleProps.input
+            )}
             placeholder="Enter to search..."
             autoFocus
             onChange={(e) => {
@@ -83,31 +76,41 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         )}
         <FaAngleDown
           className={clsx(
-            "transition-all ease-in ",
+            "transition-all ease-in",
             showDropdown ? "rotate-180" : "rotate-0"
           )}
         />
       </div>
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
-
+      {error && (
+        <span
+          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        >
+          {error}
+        </span>
+      )}
       {showDropdown && (
         <div
-          className={`mt-1 rounded flex flex-col
-            justify-between items-start ${error ? "border-red-500" : ""}`}
+          className={clsx(
+            "mt-1 rounded flex flex-col items-start",
+            error ? "border-red-500" : "",
+            styleProps.dropdownList
+          )}
         >
-          {filteredOptions.map((value, key) => {
-            return (
-              <p
-                className="border p-2 w-full rounded transition-all ease-in hover:bg-gray-300 hover:cursor-pointer"
-                onClick={() => {
-                  setShowDropdown(false);
-                  onChange(name, value);
-                }}
-              >
-                {value}
-              </p>
-            );
-          })}
+          {filteredOptions.map((optionValue, key) => (
+            <p
+              key={key}
+              className={clsx(
+                "border p-2 w-full rounded transition-all hover:bg-gray-300 cursor-pointer",
+                styleProps.option
+              )}
+              onClick={() => {
+                setShowDropdown(false);
+                onChange(name, optionValue);
+              }}
+            >
+              {optionValue}
+            </p>
+          ))}
         </div>
       )}
     </div>
