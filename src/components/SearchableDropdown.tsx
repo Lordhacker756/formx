@@ -33,6 +33,15 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const debouncedSearch = useDebounce((searchKey: string) => {
+    console.log("Debounce called");
+    setFilteredOptions(
+      options.filter((option) =>
+        option.toLowerCase().includes(searchKey.toLowerCase())
+      )
+    );
+  });
+
   useEffect(() => {
     if (hasBeenOpened) {
       onBlur(name, value, validationSchemas["select"]);
@@ -40,13 +49,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   }, [showDropdown]);
 
   const handleSearch = (searchKey: string) => {
-    useDebounce(() => {
-      setFilteredOptions(
-        options.filter((_) =>
-          _?.toLowerCase()?.includes(searchKey.toLowerCase())
-        )
-      );
-    })();
+    debouncedSearch(searchKey);
   };
 
   return (
