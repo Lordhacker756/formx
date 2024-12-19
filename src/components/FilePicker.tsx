@@ -35,7 +35,7 @@ const FilePicker: React.FC<FilePickerProps> = ({
         ref={inputRef}
         onChange={handleFileChange}
         className={clsx("hidden", styleProps.input)}
-        onBlur={() => onBlur(name, value, validationSchemas[schema])}
+        onBlur={() => onBlur(name, value, validationSchemas["file"])}
       />
       <button
         type="button"

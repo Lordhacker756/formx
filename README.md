@@ -1,4 +1,4 @@
-# FormX
+# Feather Form🪶 (FormX)
 
 A lightweight and robust form component package with built-in validations for React applications. FormX provides fully typed, accessible, and customizable form components with integrated validation support.
 

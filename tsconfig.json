@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
+    "target": "ES6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "jsx": "react-jsx",
     "declaration": true,
-    "declarationDir": "./dist/types", // Specify the directory where .d.ts files should go
-    "outDir": "./dist", // This ensures the compiled JavaScript goes to the dist folder
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "declarationDir": "dist",
+    "sourceMap": true,
+    "outDir": "dist",
     "strict": true,
-    "types": ["node"], // Ensure node types are included
-    "target": "esnext",
-    "module": "esnext"
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -22,6 +22,6 @@ export interface RadioProps {
         value: string,
         validate: (value: string) => string | null
     ) => void;
-    schema: keyof typeof validationSchemas;
+    schema: "radio";
     styleProps?: StyleProps;
 }

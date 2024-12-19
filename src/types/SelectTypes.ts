@@ -22,6 +22,6 @@ export interface SelectProps {
         validate: (value: string) => string | null
     ) => void;
     error?: string | null;
-    schema: keyof typeof validationSchemas;
+    schema: "select";
     styleProps?: StyleProps;
 }
