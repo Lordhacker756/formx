@@ -19,7 +19,8 @@ const validationSchemas = {
 
     // Password must be at least 8 characters and include a mix of letters, numbers, and symbols
     password: (value: string) =>
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value)
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&*#])[A-Za-z\d!@$%^&*#]{8,}$/
+            .test(value)
             ? null
             : 'Password must be at least 8 characters, include letters, numbers, and a special character.',
 

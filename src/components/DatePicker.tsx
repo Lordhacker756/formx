@@ -1,3 +1,4 @@
+import { FaCalendarAlt } from "react-icons/fa";
 import { DatePickerProps } from "../types";
 import { validationSchemas } from "../utils";
 import clsx from "clsx";
@@ -12,36 +13,62 @@ const DatePicker: React.FC<DatePickerProps> = ({
   styleProps = {},
 }) => {
   return (
-    <div className={clsx("flex flex-col", styleProps.container)}>
-      <label className={clsx("mb-1", styleProps.label)} htmlFor={name}>
+    <div className={clsx("relative flex flex-col mb-4", styleProps.container)}>
+      <label
+        htmlFor={name}
+        className={clsx(
+          "absolute -top-2.5 left-2 px-1 text-sm",
+          "transition-all duration-200 bg-white z-10",
+          error ? "text-red-500" : "text-gray-600",
+          styleProps.label
+        )}
+      >
         {label}
       </label>
+
       <div
         className={clsx(
-          "border p-2 rounded flex flex-row justify-between items-center hover:cursor-pointer",
-          error ? "border-red-500" : "",
-          styleProps.inputContainer
+          "relative border rounded-lg",
+          "transition-all duration-200",
+          "hover:border-blue-400 focus-within:border-blue-500",
+          "shadow-sm hover:shadow-md",
+          error ? "border-red-500" : "border-gray-300",
+          styleProps.container
         )}
-        id={name}
       >
-        <input
-          type="date"
-          name={name}
-          id={name}
-          value={value}
-          onChange={(e) => {
-            onChange(name, e.target.value);
-          }}
-          onBlur={() => onBlur(name, value, validationSchemas["date"])}
-          className={clsx("w-full border-none outline-none", styleProps.input)}
-        />
+        <div className="flex items-center px-3 py-2">
+          <input
+            type="date"
+            id={name}
+            value={value}
+            onChange={(e) => onChange(name, e.target.value)}
+            onBlur={(e) => onBlur(name, e.target.value, validationSchemas.date)}
+            className={clsx(
+              "w-full outline-none bg-transparent",
+              "text-gray-800 placeholder-gray-400",
+              "transition-all duration-200",
+              "[&::-webkit-calendar-picker-indicator]:opacity-0",
+              "[&::-webkit-calendar-picker-indicator]:absolute",
+              "[&::-webkit-calendar-picker-indicator]:w-full",
+              "[&::-webkit-calendar-picker-indicator]:h-full",
+              "[&::-webkit-calendar-picker-indicator]:cursor-pointer",
+              styleProps.input
+            )}
+          />
+          <FaCalendarAlt className="text-gray-400 w-5 h-5 pointer-events-none" />
+        </div>
       </div>
+
       {error && (
-        <span
-          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
+        <p
+          className={clsx(
+            "mt-1 text-sm text-red-500",
+            "transition-all duration-200",
+            "animate-fade-in"
+          )}
         >
           {error}
-        </span>
+        </p>
       )}
     </div>
   );

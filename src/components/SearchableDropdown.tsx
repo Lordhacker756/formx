@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { validationSchemas } from "../utils";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaSearch } from "react-icons/fa";
 import clsx from "clsx";
 import useDebounce from "../hooks/useDebounce";
 import { SearchableDropdownProps } from "../types";
@@ -39,14 +39,26 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   };
 
   return (
-    <div className={clsx(styleProps.container)}>
-      <label htmlFor={name} className={clsx(styleProps.label)}>
-        Select {label}
+    <div className={clsx("relative flex flex-col mb-4", styleProps.container)}>
+      <label
+        htmlFor={name}
+        className={clsx(
+          "absolute -top-2.5 left-2 px-1 text-sm",
+          "transition-all duration-300 ease-in-out",
+          "bg-white z-10",
+          error ? "text-red-500" : "text-gray-600",
+          styleProps.label
+        )}
+      >
+        {label}
       </label>
       <div
         className={clsx(
-          "border p-2 rounded flex justify-between items-center",
-          error ? "border-red-500" : "",
+          "relative border rounded-lg",
+          "transition-all duration-200",
+          "hover:border-blue-400 focus-within:border-blue-500",
+          "shadow-sm hover:shadow-md",
+          error ? "border-red-500" : "border-gray-300",
           styleProps.dropdownTrigger
         )}
         id={name}
@@ -56,51 +68,60 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
           !hasBeenOpened && setHasBeenOpened(true);
         }}
       >
-        {value && !showDropdown ? (
-          <p>{value}</p>
-        ) : showDropdown ? (
-          <input
-            type="text"
-            className={clsx(
-              "border-none outline-none w-full",
-              styleProps.input
+        <div className="flex items-center px-3 py-2 justify-between">
+          <div className="flex items-center justify-center gap-2">
+            <FaSearch className="text-gray-400 w-4 h-4 mr-2" />
+            {value && !showDropdown ? (
+              <p className="text-gray-800">{value}</p>
+            ) : showDropdown ? (
+              <input
+                type="text"
+                className={clsx(
+                  "w-full bg-transparent",
+                  "text-gray-800 placeholder-gray-400",
+                  "outline-none focus:ring-0",
+                  "transition-all duration-200",
+                  styleProps.input
+                )}
+                placeholder="Enter to search..."
+                autoFocus
+                onChange={(e) => {
+                  handleSearch(e.target.value);
+                }}
+              />
+            ) : (
+              <p className="text-gray-400">Search {label}</p>
             )}
-            placeholder="Enter to search..."
-            autoFocus
-            onChange={(e) => {
-              handleSearch(e.target.value);
-            }}
+          </div>
+          <FaAngleDown
+            className={clsx(
+              "text-gray-400 w-4 h-4 ml-2",
+              "transition-transform duration-200",
+              showDropdown && "transform rotate-180"
+            )}
           />
-        ) : (
-          <p className="text-gray-400">Select {label}</p>
-        )}
-        <FaAngleDown
-          className={clsx(
-            "transition-all ease-in",
-            showDropdown ? "rotate-180" : "rotate-0"
-          )}
-        />
+        </div>
       </div>
-      {error && (
-        <span
-          className={clsx("text-red-500 text-sm mt-1", styleProps.errorText)}
-        >
-          {error}
-        </span>
-      )}
+
       {showDropdown && (
         <div
           className={clsx(
-            "mt-1 rounded flex flex-col items-start",
-            error ? "border-red-500" : "",
-            styleProps.dropdownList
+            "absolute w-full mt-1",
+            "bg-white border rounded-lg",
+            "shadow-lg z-20",
+            "max-h-60 overflow-y-auto top-10",
+            "animate-dropdown",
+            styleProps.container
           )}
         >
           {filteredOptions.map((optionValue, key) => (
-            <p
+            <div
               key={key}
               className={clsx(
-                "border p-2 w-full rounded transition-all hover:bg-gray-300 cursor-pointer",
+                "px-4 py-2 cursor-pointer",
+                "transition-all duration-150",
+                "hover:bg-blue-50",
+                value === optionValue && "bg-blue-100 text-blue-700",
                 styleProps.option
               )}
               onClick={() => {
@@ -109,7 +130,7 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
               }}
             >
               {optionValue}
-            </p>
+            </div>
           ))}
         </div>
       )}
