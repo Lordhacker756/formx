@@ -2,7 +2,7 @@
 
 A lightweight and robust form component package with built-in validations for React applications. Feather form provides fully typed, accessible, and customizable form components with integrated validation support.
 
-[![npm version](https://badge.fury.io/js/formx.svg)](https://badge.fury.io/js/feather-from)
+[![npm version](https://badge.fury.io/js/feather-form.svg)](https://badge.fury.io/js/feather-form)
 
 <p align="center">
   <img src="./src/assets/demo.gif" alt="Feather Forms Demo" width="1000"/>
@@ -20,20 +20,20 @@ A lightweight and robust form component package with built-in validations for Re
 ## Installation
 
 ```bash
-npm install formx
+npm install feather-form
 ```
 ### or
 ```bash
-yarn add formx
+yarn add feather-form
 ```
 ### or
 ```bash
-pnpm add formx
+pnpm add feather-form
 ```
 
 ## Basic Usage
 ```ts
-import { Input, useFormValidation } from 'formx';
+import { Input, useFormValidation } from 'feather-form';
 
 const MyForm = () => {
   const { values, errors, handleChange, handleBlur } = useFormValidation({
