@@ -2,7 +2,11 @@
 
 A lightweight and robust form component package with built-in validations for React applications. FormX provides fully typed, accessible, and customizable form components with integrated validation support.
 
-[![npm version](https://badge.fury.io/js/formx.svg)](https://badge.fury.io/js/formx)
+[![npm version](https://badge.fury.io/js/formx.svg)](https://badge.fury.io/js/feather-from)
+
+<p align="center">
+  <img src="./src/assets/demo.gif" alt="Feather Forms Demo" width="600"/>
+</p>
 
 ## Features
 
@@ -113,7 +117,7 @@ A customizable select dropdown component
 #### Style Props
 ```JSX
 styleProps?: {
-  wrapper?: string;        // Main container
+  container?: string;        // Main container
   label?: string;         // Label element
   dropdownTrigger?: string; // Dropdown button
   dropdownList?: string;  // Options container

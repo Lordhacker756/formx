@@ -18,6 +18,5 @@ export interface InputProps {
         inputWrapper?: string;
         input?: string;
         passwordToggle?: string;
-        errorText?: string;
     }
 }

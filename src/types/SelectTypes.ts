@@ -1,7 +1,7 @@
 import { validationSchemas } from "../utils";
 
 interface StyleProps {
-    wrapper?: string;
+    container?: string;
     label?: string;
     dropdownTrigger?: string;
     dropdownList?: string;
