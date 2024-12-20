@@ -50,7 +50,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div
-      className={clsx("relative flex flex-col mb-4", styleProps.wrapper)}
+      className={clsx("relative flex flex-col mb-4", styleProps.container)}
       ref={dropdownRef}
     >
       <label
@@ -103,7 +103,7 @@ const Select: React.FC<SelectProps> = ({
             "shadow-lg z-40",
             "transform top-12 origin-top",
             "animate-dropdown",
-            styleProps.wrapper
+            styleProps.dropdownList
           )}
         >
           {options.map((option) => (
