@@ -1,11 +1,11 @@
-# Feather Forms🪶
+# Feather Form🪶
 
-A lightweight and robust form component package with built-in validations for React applications. FormX provides fully typed, accessible, and customizable form components with integrated validation support.
+A lightweight and robust form component package with built-in validations for React applications. Feather form provides fully typed, accessible, and customizable form components with integrated validation support.
 
 [![npm version](https://badge.fury.io/js/formx.svg)](https://badge.fury.io/js/feather-from)
 
 <p align="center">
-  <img src="./src/assets/demo.gif" alt="Feather Forms Demo" width="600"/>
+  <img src="./src/assets/demo.gif" alt="Feather Forms Demo" width="1000"/>
 </p>
 
 ## Features

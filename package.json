@@ -1,16 +1,25 @@
 {
-  "name": "feather-formix",
-  "version": "0.0.4",
+  "name": "feather-form",
+  "version": "0.0.1",
   "author": {
     "name": "Utkarsh Mishra",
     "email": "utkarshmishra2001@gmail.com"
   },
-  "main": "dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lordhacker756/formx"
+  },
+  "bugs": {
+    "url": "https://github.com/Lordhacker756/formx/issues"
+  },
+  "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "dist/styles.css"
+    "README.md",
+    "LICENSE"
   ],
   "exports": {
     ".": {
@@ -25,24 +34,34 @@
     },
     "./styles.css": "./dist/styles.css"
   },
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "forms",
+    "react-forms",
+    "form-validation",
+    "typescript",
+    "tailwind",
+    "lightweight"
+  ],
   "description": "A lightweight and robust form component package with inbuilt validations for React",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
+    "prepublishOnly": "pnpm build",
     "build": "vite build && pnpm build:css",
-    "build:css": "tailwindcss -i src/styles/index.css -o dist/styles.css",
-    "build-prev": "vite build && pnpm build:css",
-    "dev": "pnpm vite  && pnpm build:css --watch"
+    "build:css": "tailwindcss -i src/styles/index.css -o dist/styles.css"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
-    "tailwindcss": "^3.4.16"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
@@ -51,7 +70,9 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "clsx": "^2.1.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
     "eslint": "^9.15.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
@@ -60,5 +81,9 @@
     "typescript-eslint": "^8.15.0",
     "vite": "^6.0.1",
     "vite-plugin-dts": "^4.4.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
   }
 }
