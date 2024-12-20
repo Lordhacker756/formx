@@ -34,120 +34,145 @@ const App = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto space-y-4">
-      <Input
-        name="name"
-        label="Name"
-        value={values.name}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.name}
-        schema="name"
-      />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Feather From🪶
+          </h1>
+          <p className="text-gray-600">
+            Elegant and Responsive Form Components
+          </p>
+        </div>
 
-      <Input
-        name="email"
-        label="Email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.email}
-        schema="email"
-      />
+        <form
+          className="bg-white rounded-2xl shadow-xl p-8 space-y-8"
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          {/* Personal Information Section */}
+          <section className="space-y-6">
+            <h2 className="text-xl font-semibold text-gray-800 pb-2 border-b">
+              Personal Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Input
+                name="name"
+                label="Full Name"
+                value={values.name}
+                error={errors.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                schema="name"
+              />
+              <Input
+                name="email"
+                label="Email Address"
+                value={values.email}
+                error={errors.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                schema="email"
+              />
+            </div>
+            <Input
+              name="password"
+              label="Password"
+              value={values.password}
+              error={errors.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              schema="password"
+            />
+          </section>
 
-      <Input
-        name="password"
-        label="Password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.password}
-        schema="password"
-      />
+          {/* Professional Details Section */}
+          <section className="space-y-6">
+            <h2 className="text-xl font-semibold text-gray-800 pb-2 border-b">
+              Professional Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Select
+                name="department"
+                label="Department"
+                value={values.department}
+                error={errors.department}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                options={["Engineering", "Design", "Marketing", "Sales"]}
+                schema="select"
+              />
+              <SearchableDropdown
+                name="role"
+                label="Role"
+                value={values.role}
+                error={errors.role}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                options={["Developer", "Designer", "Manager", "Director"]}
+                schema="select"
+              />
+            </div>
+            <TextArea
+              name="coverLetter"
+              label="Cover Letter"
+              value={values.coverLetter}
+              error={errors.coverLetter}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              schema="textarea"
+            />
+          </section>
 
-      <TextArea
-        name="coverLetter"
-        label="Cover Letter"
-        value={values.coverLetter}
-        error={errors.coverLetter}
-        schema="textarea"
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
+          {/* Additional Information Section */}
+          <section className="space-y-6">
+            <h2 className="text-xl font-semibold text-gray-800 pb-2 border-b">
+              Additional Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <DatePicker
+                name="dateOfBirth"
+                label="Date of Birth"
+                value={values.dateOfBirth}
+                error={errors.dateOfBirth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <TimePicker
+                name="loginTime"
+                label="Preferred Login Time"
+                value={values.loginTime}
+                error={errors.loginTime}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
+            <RadioGroup
+              name="gender"
+              label="Gender"
+              value={values.gender}
+              error={errors.gender}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              options={["Male", "Female", "Other"]}
+              schema="radio"
+            />
+            <FilePicker
+              name="resume"
+              label="Upload Resume"
+              value={values.resume}
+              error={errors.resume}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              schema="file"
+            />
+          </section>
 
-      <RadioGroup
-        name="gender"
-        label="Gender"
-        options={["male", "female"]}
-        value={values.gender}
-        key="gender"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={errors.gender}
-        schema="radio"
-      />
-
-      <Select
-        name="role"
-        label="Job Role"
-        error={errors.role}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        schema="select"
-        value={values.role}
-        options={["SDE1", "SDE2", "SDE3", "SA", "PE"]}
-      />
-
-      <SearchableDropdown
-        name="department"
-        label="Department"
-        value={values.department}
-        error={errors.department}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        options={[
-          "Frontend",
-          "Backend",
-          "Database Management",
-          "DevOps",
-          "DevRel",
-          "Mobile",
-          "Human Resource",
-        ]}
-        schema="select"
-      />
-
-      <FilePicker
-        name="resume"
-        label="Resume"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        schema="file"
-        value={values.resume}
-        error={errors.resume}
-        key={"resume"}
-      />
-
-      <DatePicker
-        name="dateOfBirth"
-        label="Date of Birth"
-        error={errors.dateOfBirth}
-        value={values.dateOfBirth}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
-
-      <TimePicker
-        name="loginTime"
-        label="Login Time"
-        error={errors.loginTime}
-        value={values.loginTime}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
-
-      <SubmitButton disabled={hasErrors()} />
-    </form>
+          <div className="pt-6">
+            <SubmitButton label="Submit Application" disabled={hasErrors()} />
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

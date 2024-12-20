@@ -50,57 +50,70 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div
-      className={clsx("flex flex-col", styleProps.wrapper)}
+      className={clsx("relative flex flex-col mb-4", styleProps.container)}
       ref={dropdownRef}
     >
-      <label htmlFor={name} className={clsx("mb-1", styleProps.label)}>
+      <label
+        htmlFor={name}
+        className={clsx(
+          "absolute -top-2.5 left-2 px-1 text-sm",
+          "transition-all duration-200 bg-white",
+          "pointer-events-none",
+          error ? "text-red-500" : "text-gray-600",
+          styleProps.label
+        )}
+      >
         {label}
       </label>
+
       <div
         id={name}
         role="button"
         aria-expanded={showDropdown}
         tabIndex={0}
         className={clsx(
-          "border p-2 rounded flex justify-between items-center cursor-pointer",
+          "border rounded-lg p-3",
+          "transition-all duration-200",
+          "hover:border-blue-400 focus:border-blue-500",
+          "shadow-sm hover:shadow-md",
+          "flex justify-between items-center cursor-pointer",
           error ? "border-red-500" : "border-gray-300",
-          "focus:outline-none focus:ring focus:ring-blue-500",
+          "focus:outline-none focus:ring-2 focus:ring-blue-200",
           styleProps.dropdownTrigger
         )}
         onClick={handleDropdownClick}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleDropdownClick();
-        }}
       >
-        <span>{value || `Select ${label}`}</span>
+        <span className={clsx("text-gray-700", !value && "text-gray-400")}>
+          {value || `Select ${label}`}
+        </span>
         <FaAngleDown
           className={clsx(
-            "transition-transform",
-            showDropdown ? "rotate-180" : "rotate-0"
+            "w-5 h-5 text-gray-400",
+            "transition-transform duration-200",
+            showDropdown && "transform rotate-180"
           )}
         />
       </div>
-      {error && (
-        <span className={clsx("text-red-500 text-sm mt-1", styleProps.error)}>
-          {error}
-        </span>
-      )}
+
       {showDropdown && (
         <div
-          role="listbox"
           className={clsx(
-            "mt-1 border rounded shadow bg-white max-h-48 overflow-y-auto",
+            "absolute w-full mt-1 py-1",
+            "bg-white border rounded-lg",
+            "shadow-lg z-40",
+            "transform top-12 origin-top",
+            "animate-dropdown",
             styleProps.dropdownList
           )}
         >
-          {options.map((option, index) => (
+          {options.map((option) => (
             <div
-              key={`${name}-${index}`}
-              role="option"
+              key={option}
               className={clsx(
-                "p-2 cursor-pointer hover:bg-gray-100",
-                value === option &&
-                  clsx("bg-gray-200 font-semibold", styleProps.optionSelected),
+                "px-4 py-2 cursor-pointer",
+                "transition-all duration-150",
+                "hover:bg-blue-50",
+                value === option && "bg-blue-100 text-blue-700",
                 styleProps.option
               )}
               onClick={() => {
@@ -112,6 +125,12 @@ const Select: React.FC<SelectProps> = ({
             </div>
           ))}
         </div>
+      )}
+
+      {error && (
+        <p className="mt-1 text-sm text-red-500 transition-all duration-200">
+          {error}
+        </p>
       )}
     </div>
   );
