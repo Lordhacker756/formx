@@ -16,7 +16,7 @@ export interface SearchableDropdownProps {
     value: string;
     options: string[];
     error: string | null;
-    schema: keyof typeof validationSchemas;
+    schema: 'select';
     onChange: (name: string, value: string) => void;
     onBlur: (
         name: string,

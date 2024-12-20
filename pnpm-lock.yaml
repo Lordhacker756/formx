@@ -30,11 +30,14 @@ importers:
       '@eslint/js':
         specifier: ^9.15.0
         version: 9.17.0
+      '@tsconfig/node20':
+        specifier: ^20.1.4
+        version: 20.1.4
       '@types/node':
         specifier: ^22.10.2
         version: 22.10.2
       '@types/react':
-        specifier: ^18.3.12
+        specifier: ^18.3.1
         version: 18.3.17
       '@types/react-dom':
         specifier: ^18.3.1
@@ -542,6 +545,9 @@ packages:
 
   '@swc/types@0.1.17':
     resolution: {integrity: sha512-V5gRru+aD8YVyCOMAjMpWR1Ui577DD5KSJsHP8RAxopAH22jFz6GZd/qxqjO6MJHQhcsjvjOFXyDhyLQUnMveQ==}
+
+  '@tsconfig/node20@20.1.4':
+    resolution: {integrity: sha512-sqgsT69YFeLWf5NtJ4Xq/xAF8p4ZQHlmGW74Nu2tD4+g5fAsposc4ZfaaPixVu4y01BEiDCWLRDCvDM5JOsRxg==}
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
@@ -1935,6 +1941,8 @@ snapshots:
   '@swc/types@0.1.17':
     dependencies:
       '@swc/counter': 0.1.3
+
+  '@tsconfig/node20@20.1.4': {}
 
   '@types/argparse@1.0.38': {}
 

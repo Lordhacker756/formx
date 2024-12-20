@@ -1,38 +1,68 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import dts from 'vite-plugin-dts'
+import path from 'path'
 
 export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ['src'],
-      outDir: 'dist/types',
+      include: ['src/**/*.ts', 'src/**/*.tsx', 'index.ts'],
+      outDir: 'dist',
+      rollupTypes: true
     })
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/main.tsx'),
-      name: 'Formx',
-      fileName: (format) => {
-        if (format === 'umd') {
-          return 'index.umd.js';
-        } else if (format === 'es') {
-          return 'index.es.js';
-        } else {
-          return 'index.js'; // Add this line to generate the default index.js file
-        }
-      },
+      entry: path.resolve(__dirname, 'index.ts'),
+      formats: ['es', 'umd'],
+      name: 'FormX',
+      fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
+        assetFileNames: 'styles.css',
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM',
-        },
-      },
+          'react-dom': 'ReactDOM'
+        }
+      }
     },
-  },
-});
+    cssCodeSplit: false
+  }
+})
+
+
+
+
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react-swc'
+// import dts from 'vite-plugin-dts'
+// import path from 'path'
+
+// export default defineConfig({
+//   plugins: [
+//     react(),
+//     dts({
+//       include: ['src/**/*.ts', 'src/**/*.tsx', 'index.ts'],
+//       beforeWriteFile: (filePath, content) => ({
+//         filePath: filePath,
+//         content: content
+//       }),
+//       outDir: 'dist',
+//       insertTypesEntry: true,
+//       rollupTypes: true
+//     })
+//   ],
+//   build: {
+//     lib: {
+//       entry: path.resolve(__dirname, 'index.ts'),
+//       formats: ['es', 'cjs'],
+//       fileName: (format) => `index.${format}.js`
+//     },
+//     rollupOptions: {
+//       external: ['react', 'react-dom'],
+//     }
+//   }
+// })

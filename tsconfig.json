@@ -1,15 +1,42 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "./dist/types", // Specify the directory where .d.ts files should go
-    "outDir": "./dist", // This ensures the compiled JavaScript goes to the dist folder
-    "moduleResolution": "node",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["node"], // Ensure node types are included
-    "target": "esnext",
-    "module": "esnext"
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": false,
+    "jsx": "react-jsx",
+    "outDir": "./dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src", "index.ts"]
 }
+
+// {
+//   "extends": "@tsconfig/node20/tsconfig.json",
+//   "compilerOptions": {
+//     "jsx": "preserve",
+//     "outDir": "./dist",
+//     "declaration": true,
+//     "declarationDir": "./dist",
+//     "emitDeclarationOnly": false,
+//     "skipLibCheck": true,
+//     "lib": ["dom", "esnext"],
+//     "target": "ESNext",
+//     "module": "ESNext",
+//     "moduleResolution": "node",
+//     "esModuleInterop": true
+//   },
+//   "include": ["src/**/*", "index.ts"],
+//   "exclude": ["node_modules"]
+// }

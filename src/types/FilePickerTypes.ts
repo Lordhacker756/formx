@@ -20,6 +20,6 @@ export interface FilePickerProps {
         validate: (value: File | null) => string | null
     ) => void;
     error?: string | null;
-    schema: keyof typeof validationSchemas;
+    schema: 'file';
     styleProps?: StyleProps;
 }

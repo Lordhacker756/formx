@@ -18,6 +18,6 @@ export interface TextAreaProps {
         validate: (value: string) => string | null
     ) => void;
     error?: string | null;
-    schema: keyof typeof validationSchemas;
+    schema: 'textarea';
     styleProps?: StyleProps;
 }

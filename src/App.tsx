@@ -84,7 +84,7 @@ const App = () => {
         onBlur={handleBlur}
         onChange={handleChange}
         error={errors.gender}
-        schema="select"
+        schema="radio"
       />
 
       <Select
@@ -122,7 +122,7 @@ const App = () => {
         label="Resume"
         onBlur={handleBlur}
         onChange={handleChange}
-        schema="select"
+        schema="file"
         value={values.resume}
         error={errors.resume}
         key={"resume"}

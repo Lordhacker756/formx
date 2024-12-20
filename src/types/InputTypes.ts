@@ -11,7 +11,7 @@ export interface InputProps {
         validate: (value: string) => string | null
     ) => void;
     error?: string | null;
-    schema?: keyof typeof validationSchemas;
+    schema?: "name" | "email" | "phone" | "password";
     styleProps?: {
         container?: string;
         label?: string;

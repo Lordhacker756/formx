@@ -1,24 +1,40 @@
 {
-  "name": "formx",
-  "version": "0.0.0",
+  "name": "feather-formix",
+  "version": "0.0.4",
   "author": {
     "name": "Utkarsh Mishra",
     "email": "utkarshmishra2001@gmail.com"
   },
-  "main": "dist/index.umd.js",
+  "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "dist/styles.css"
   ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.umd.js"
+      }
+    },
+    "./styles.css": "./dist/styles.css"
+  },
   "description": "A lightweight and robust form component package with inbuilt validations for React",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "build": "vite build && pnpm build:css",
+    "build:css": "tailwindcss -i src/styles/index.css -o dist/styles.css",
+    "build-prev": "vite build && pnpm build:css",
+    "dev": "pnpm vite  && pnpm build:css --watch"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
@@ -30,8 +46,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.10.2",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "clsx": "^2.1.1",
